@@ -1,6 +1,6 @@
 package tw.hui.tutor;
 
-public class HUI07 {
+public class Hui07 {
 
 	public static void main(String[] args) {
 		// 閏年
