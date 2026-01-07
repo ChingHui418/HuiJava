@@ -11,11 +11,17 @@ public class Bike extends Object {
 		System.out.println("Bike(int)");
 	}
 	
-	public void upSpeed() {
+//	public void upSpeed() {
+//		speed = speed < 1 ? 1 : speed * 1.3;
+//	}
+	// 1/7
+	public Bike upSpeed() {
 		speed = speed < 1 ? 1 : speed * 1.3;
+		return this;
 	}
-	public void downSpeed() {
+	public Bike downSpeed() {
 		speed = speed < 1 ? 0 : speed * 0.5;
+		return this;
 	}
 	
 	public double getSpeed() {

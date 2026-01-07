@@ -5,7 +5,7 @@ import tw.hui.apis.Bike;
 public class Hui21 {
 
 	public static void main(String[] args) {
-		// String
+		// Stringss
 		String s1 = new String();
 		byte[] b2 = {65, 66, 67, 68};
 		String s2 = new String(b2);

@@ -28,9 +28,25 @@ public class TWId {
 		}
 	}
 	
-//	public TWId(String id) {  // 這條之後會處理
-//		this.id = id;
-//	}
+	public TWId(String id) {  // 這條之後會處理
+		this.id = id;
+	}
+	
+	public static TWId createTWId(String id ) {
+		if(isRight(id)) {			// static處理
+			return new TWId(id);
+		}else {
+			return null;
+		}
+	}
+	
+	public boolean isMale() {
+		return true;
+	}
+	
+	public String getArea() {
+		return "台南市";
+	}
 	
 	@Override
 	public String toString() {
@@ -48,6 +64,12 @@ public class TWId {
 //				char c2 = id.charAt(1);
 //				if(c2 == '1' || c2 == '2') {
 //					// TODO: 後8碼為數字
+//					for(int i=2; i<10; i++) {
+//						char c = id.charAt(i);
+//						if(c<'0' || c>'9') {
+//							return false;
+//						}
+//					}
 //					
 //					
 //				}

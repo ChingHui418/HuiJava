@@ -19,8 +19,9 @@ public class Scooter extends Bike {
 	}
 	
 	
-	public void upSpeed() {
+	public Scooter upSpeed() {
 		speed = speed < 1 ? 1 : speed * 1.8 * gear;
+		 return this;
 	}
 	
 	// Overload
