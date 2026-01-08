@@ -15,6 +15,8 @@ public class Hui25 {
 		Hui251 obj5 = new Hui253();
 		obj5.m1();
 		
+		
+		
 		// 強制轉型回來 -> 有關係，但轉不回去
 //		Hui253 obj6 = (Hui253)obj3;
 		System.out.println("---");
@@ -31,6 +33,18 @@ public class Hui25 {
 			System.out.println("OK");
 		}else {
 			System.out.println("XX");
+		}
+		
+		if(obj4 instanceof Hui252) {
+			System.out.println("Yes");
+		}else {
+			System.out.println("No");
+		}
+		
+		if(obj5 instanceof Hui253) {
+			System.out.println("Yes");
+		}else {
+			System.out.println("No");
 		}
 		
 	}

@@ -4,14 +4,15 @@ public class Hui24 {
 
 	public static void main(String[] args) {
 		// static
-//		Hui241.m2();
+		Hui241.m2();
 //		Hui241.m2();
 //		Hui241.m2();
 		Hui241 obj1 = new Hui242();
 //		Hui241 obj2 = new Hui241();
 //		Hui241 obj3 = new Hui241();
-//		obj1.m1();
+		obj1.m1();
 //		obj1.m2();
+	
 //		
 	}
 
