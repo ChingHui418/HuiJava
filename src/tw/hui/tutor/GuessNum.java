@@ -95,8 +95,6 @@ public class GuessNum extends JFrame implements ActionListener {
 			String g = input.getText();
 			// 檢查機制
 			
-
-			
 			counter++;
 			input.setText("");
 			
@@ -114,7 +112,7 @@ public class GuessNum extends JFrame implements ActionListener {
 		
 		private String checkAB(String g) {
 			// 區域變數
-			int A, B; A = B =0;
+			int A, B; A = B = 0;
 			
 			for(int i=0; i<answer.length(); i++) {
 				if(answer.charAt(i) == g.charAt(i)) {

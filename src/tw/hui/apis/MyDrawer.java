@@ -13,12 +13,17 @@ import javax.swing.JPanel;
 
 public class MyDrawer extends JPanel {
 	
-	private List<Line> lines;
+	private List<LineV2> lines, recycle;
+	private Color defaultColor;
+	private float defaultWidth;
 	
 	public MyDrawer() {
 		setBackground(Color.YELLOW);
 		
 		lines = new ArrayList<>();
+		recycle = new ArrayList<>();
+		defaultColor = Color.BLUE;
+		defaultWidth = 4f;
 		
 		MyListener listener = new MyListener();
 		addMouseListener(listener);
@@ -39,10 +44,12 @@ public class MyDrawer extends JPanel {
 		
 		
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setStroke(new BasicStroke(4));
-		g2d.setColor(Color.BLUE);
+//		g2d.setStroke(new BasicStroke(4));
+//		g2d.setColor(defaultColor);
 		
-		for(Line line : lines) {
+		for(LineV2 line : lines) {
+			g2d.setColor(line.getColor());
+			g2d.setStroke(new BasicStroke(line.getWidth()));
 			for (int i = 1; i<line.getSize(); i++) {
 //				Point p1 = line.get(i-1);
 //				Point p2 = line.get(i);
@@ -56,13 +63,14 @@ public class MyDrawer extends JPanel {
 	}
 	
 	private class MyListener extends MouseAdapter {
-		
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// 產生新線
-			Line line = new Line();
+			LineV2 line = new LineV2(defaultColor, defaultWidth);
 			line.addPoint(e.getX(), e.getY());
 			lines.add(line);
+			
+			recycle.clear();
 			
 //			System.out.println("Press" + e.getX() + ":" + e.getY());
 //			Point p = new Point(e.getX(), e.getY());
@@ -82,8 +90,32 @@ public class MyDrawer extends JPanel {
 	
 	public void clear() {
 		lines.clear();
+		repaint();	
+	}
+	
+	public void undo() {
+		if(lines.size() > 0) {
+		recycle.add(lines.removeLast());
 		repaint();
-		
+		}
+	}
+	
+	public void redo() {
+		if (recycle.size() > 0) {
+			lines.add(recycle.removeLast());
+			repaint();
+		}
+	}
+	
+	public void changeColor(Color newColor) {
+		defaultColor = newColor;
+	}
+	public Color getColor() {
+		return defaultColor;
+	}
+	
+	public void changWidth(float width) {
+		defaultWidth = width;
 	}
 	
 }

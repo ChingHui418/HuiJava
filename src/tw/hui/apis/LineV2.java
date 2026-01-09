@@ -2,29 +2,33 @@ package tw.hui.apis;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class Line {
-	private List<Point> points;
+public class LineV2 {
+	private List<Map<String, Integer>> points;
 	private Color color;
 	private float width;
 	
-	public Line(Color color, float width) {
-		points = new ArrayList<Point>();
+	public LineV2(Color color, float width) {
+		points = new ArrayList<Map<String, Integer>>();
 		this.color = color;
 		this.width = width;
 	}
 	
 	public void addPoint(int x, int y) {
-		Point p = new Point(x, y);
+		Map<String, Integer> p = new HashMap<>();
+		p.put("x", x);
+		p.put("y", y);
 		points.add(p);
 	}
 	
 	public int getPointX(int i) {
-		return points.get(i).getX();
+		return points.get(i).get("x"); // Integer unboxing int
 	}
 	public int getPointY(int i) {
-		return points.get(i).getY();
+		return points.get(i).get("y");
 	}
 	
 	public int getSize() {return points.size();}
