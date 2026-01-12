@@ -1,10 +1,11 @@
 package tw.hui.apis;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Line {
+public class Line implements Serializable {
 	private List<Point> points;
 	private Color color;
 	private float width;

@@ -6,6 +6,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,6 +123,24 @@ public class MyDrawer extends JPanel {
 		defaultWidth = width;
 	}
 	
+	public void saveLines(File file) throws Exception{
+		try(ObjectOutputStream oout = new ObjectOutputStream(
+				new FileOutputStream(file))){
+			oout.writeObject(lines);
+		}
+	}
+	public void loadLines(File file) throws Exception {
+		try (ObjectInputStream oin = new ObjectInputStream(new FileInputStream(file))){
+			Object obj = oin.readObject();
+			if (obj instanceof List) {
+				lines = (List<LineV2>)obj;
+				repaint();
+				recycle.clear();
+			}else {
+				throw new Exception("你來亂的!");
+			}
+		}
+	}
 }
 
 

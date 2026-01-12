@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 public class Hui45 {
 
 	public static void main(String[] args) {
-		// 讀取img
+		// 讀取image
 		long start = System.currentTimeMillis();
 		try {
 			FileInputStream fin = new FileInputStream("dir1/img.jpg");

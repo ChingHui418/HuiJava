@@ -5,10 +5,13 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
@@ -18,7 +21,7 @@ import tw.hui.apis.MyDrawer;
 
 public class MySign extends JFrame {
 	private MyDrawer myDrawer;
-	private JButton clear, undo, redo, color;
+	private JButton clear, undo, redo, color, saveObj, loadObj;
 	private JSlider width;
 	
 	public MySign() {
@@ -33,11 +36,15 @@ public class MySign extends JFrame {
 		undo = new JButton("undo");
 		redo = new JButton("redo");
 		color = new JButton("color");
+		saveObj = new JButton("Save Lines");
+		loadObj = new JButton("Load Lines");
+
 		width = new JSlider(10, 200, 40);
 		top.add(clear);
 		top.add(undo);
 		top.add(redo);
-		top.add(color);
+		top.add(color); 
+		top.add(saveObj); top.add(loadObj); 
 		top.add(width);
 		add(top, BorderLayout.NORTH);
 
@@ -80,6 +87,20 @@ public class MySign extends JFrame {
 				myDrawer.changWidth(width.getValue()*0.1f);
 			}
 		});
+		
+		saveObj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				saveLines();
+			}
+		});
+		loadObj.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadLines();
+			}
+		});
+
 	}
 	
 	private void changeColor() {
@@ -88,6 +109,35 @@ public class MySign extends JFrame {
 			myDrawer.changeColor(color);
 		}
 	}
+	
+	private void saveLines() {
+		JFileChooser jfc = new JFileChooser();
+		if ( jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+			File saveFile = jfc.getSelectedFile();
+			try {
+				myDrawer.saveLines(saveFile);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "ERROR1");
+			}
+		}
+	}
+		
+	private void loadLines() {
+		JFileChooser jfc = new JFileChooser();
+		if (jfc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			File loadFile = jfc.getSelectedFile();
+			try {
+				myDrawer.loadLines(loadFile);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "ERROR2");
+			}			
+	}
+
+		
+}
+
+	
+	
 
 	public static void main(String[] args) {
 		// 簽名程式
