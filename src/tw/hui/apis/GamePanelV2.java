@@ -1,0 +1,100 @@
+package tw.hui.apis;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import javax.imageio.ImageIO;
+import javax.swing.JPanel;
+
+public class GamePanelV2 extends JPanel {
+	private BufferedImage[] ballImgs = new BufferedImage[4];
+	private String[] source = {"dir3/ball0.png", "dir3/ball1.png"
+								, "dir3/ball2.png", "dir3/ball3.png"};
+	private int[] ballWs = new int[4];
+	private int[] ballHs = new int[4];
+	private int viewW, viewH;
+	private ArrayList<BallTask> balls = new ArrayList<>(); // 不固定個數的球
+	private Timer timer = new Timer(); // 創建 timer
+	
+	public GamePanelV2() {
+		setBackground(Color.YELLOW);
+		try {
+			for(int i=0; i<ballImgs.length; i++) {
+				ballImgs[i] = ImageIO.read(new File(source[i]));
+				ballWs[i] = ballImgs[i].getWidth();
+				ballHs[i] = ballImgs[i].getHeight();
+			}
+		}catch(IOException e) {
+			System.out.println(e);
+		}
+		
+		timer.schedule(new RefreshView(), 0, 16);
+		addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				BallTask ball = new BallTask(e.getX(), e.getY());
+				balls.add(ball); // 畫面更新
+				timer.schedule(ball, 300, 30); // 要能動 (球, 幾秒, 單位時間移動距離 => 決定速度)
+			}
+		});
+	}
+	// 畫面更新 固定頻率
+	private class RefreshView extends TimerTask {
+		@Override
+		public void run() {
+			repaint();		
+		}	
+	}
+	
+	private class BallTask extends TimerTask {
+		int ballX, ballY;
+		int dx, dy;
+		int imgIndex;
+		
+		public BallTask(int ballX, int ballY) {
+			this.ballX = ballX; this.ballY = ballY;
+			imgIndex = new Random().nextInt(4);
+			dx = (int)(Math.random()*17 - 8);
+			dy = (int)(Math.random()*17 - 8);
+			// 球在滑鼠中間點出來
+			this.ballX = (int)(ballX - ballWs[imgIndex] / 2.0);
+			this.ballY = (int)(ballY - ballHs[imgIndex] / 2.0);
+		}
+		
+		@Override
+		public void run() {
+			// 可限制點擊區域，才不會在邊邊點擊時一直彈
+			if(ballX < 0 || ballX + ballWs[imgIndex] > viewW) {
+				dx *= -1;
+			}
+			if(ballY < 0 || ballY + ballHs[imgIndex] > viewH) {
+				dy *= -1;
+			}
+			ballX += dx;
+			ballY += dy;
+		}
+	}
+	
+	@Override
+	// 使用者任何時間看到的邏輯
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		viewW = getWidth(); viewH = getHeight();
+		
+		// 球的影像
+		for(BallTask ball : balls) {
+			g.drawImage(ballImgs[ball.imgIndex], ball.ballX, ball.ballY, null);
+		}
+	}
+}
+

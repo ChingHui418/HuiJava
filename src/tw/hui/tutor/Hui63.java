@@ -10,9 +10,9 @@ public class Hui63 {
 		MyRunable mr1 = new MyRunable("C");
 		Thread t1 = new Thread(mr1);
 		
-		mt1.setDaemon(true);
-		mt2.setDaemon(true);
-		t1.setDaemon(false);
+//		mt1.setDaemon(true);
+//		mt2.setDaemon(true);
+//		t1.setDaemon(false);
 		
 		mt1.start();
 		mt2.start();
