@@ -6,7 +6,7 @@ import java.io.ObjectInputStream;
 import tw.hui.apis.Student;
 
 public class Hui49 {
-
+	// 讀取檔案
 	public static void main(String[] args) {
 		try(ObjectInputStream oin = new ObjectInputStream(
 				new FileInputStream("dir1/hui.score"))){

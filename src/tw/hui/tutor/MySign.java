@@ -145,9 +145,6 @@ public class MySign extends JFrame {
 		
 }
 
-	
-	
-
 	public static void main(String[] args) {
 		// 簽名程式
 		new MySign();
